@@ -5,7 +5,7 @@
 }}}
 import { Html, PropsWithChildren } from 'adonisjsx'
 
-export function Default_layout({ children }: PropsWithChildren) {
+export function DefaultLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <head>
