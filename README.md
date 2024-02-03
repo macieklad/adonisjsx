@@ -25,6 +25,7 @@ npm i adonisjsx
 # Register providers and config
 node ace configure adonisjsx
 ```
+### Add jsx factories
 
 After installing package, extend your `tsconfig.json` compiler options:
 
@@ -40,6 +41,7 @@ After installing package, extend your `tsconfig.json` compiler options:
   "plugins": [{ "name": "@kitajs/ts-html-plugin" }]
 }
 ```
+### Register jsx runtime
 
 As in `jsxFactory` and `jsxFragmentFactory`, `Html` class must be available in scope whenever you are using JSX. You can import it directly in your files when using JSX:
 
@@ -55,6 +57,10 @@ Or add it globally by registering `Html` module. Add an import to your `server.t
 ```tsx
 import 'adonisjsx/register'
 ```
+
+### Update `useAsyncLocalStorage`
+You should also update your `app.ts` `
+useAsyncLocalStorage` to `true` if you want to access helpers that depend on `HttpContext` to work.
 
 ## API
 
@@ -107,7 +113,7 @@ async function MyComponent() {
 
 But you may want to show most of your UI instantly, and then stream only the parts that require async data. You can do that with `streamJsx` method. It will render the component and then stream the async parts as they resolve. Underneath, this method uses AdonisJS streaming, so you do not return the result of the method, you just call it.
 
-Stream jsx takes the same options as `jsx` method, but also accepts `errorCallback` option, which is called when an error occurs during streaming. By default, it will log the error and send 500 status code, but you can override it to handle errors in your own way. It comes directly from the framework [streaming methods](https://docs.adonisjs.com/guides/response#streaming-content).
+`streamJsx` takes the same options as `jsx` method, but also accepts `errorCallback` option, which is called when an error occurs during streaming. By default, it will log the error and send 500 status code, but you can override it to handle errors in your own way. It comes directly from the framework [streaming methods](https://docs.adonisjs.com/guides/response#streaming-content).
 
 ```tsx
 import { Suspense } from 'adonisjsx'
@@ -135,12 +141,109 @@ async function MyAsyncComponent() {
 }
 ```
 
+### `viteAssets`
+```tsx
+function viteAssets(entries: string[], attributes: Record<string, unknown> = {}): JSX.Element
+```
+If you use vite with AdonisJS, there are helper methods for edge templates that integrate your templates with vite. `adonisjsx` provides similar helpers for JSX. 
+
+You can use `viteAssets` method to generate resource tags in your JSX that refer to the vite entries.
+
+For vite config like this:
+```tsx
+adonisjs({
+  entrypoints: ['resources/js/app.js'],
+})
+```
+
+You can add the javascript entry to your JSX like this:
+```tsx
+import { viteAssets } from 'adonisjsx'
+
+function MyComponent() {
+  return (
+    <html>
+      <head>
+        {viteAssets(['resources/js/app.js'])}
+      </head>
+      <body>
+        <div>Hello World</div>
+      </body>
+    </html>
+  )
+}
+```
+### `viteReactRefresh`
+
+```tsx
+function viteReactRefresh(): JSX.Element
+```
+
+This function will add the necessary script tags to enable vite's react refresh feature. Make sure it is registered before actual react scripts.
+
+```tsx
+import { viteReactRefresh, viteAssets } from 'adonisjsx'
+
+function MyComponent() {
+  return (
+    <html>
+      <head>
+        {viteReactRefresh()}
+        {viteAssets(['resources/js/app.js'])}
+      </head>
+      <body>
+        <div>Hello World</div>
+      </body>
+    </html>
+  )
+}
+```
+
+### `csrfField`
+With `@adonisjs/shield` installed, you can use `csrfField` method to generate a hidden input with csrf token.
+
+```tsx
+import { csrfField } from 'adonisjsx'
+
+function Form() {
+  return (
+    <form>
+      {csrfField()}
+      <button>Submit</button>
+    </form>
+  )
+}
+```
+
+### `route`
+You can use `route` method to generate urls for your routes. It works the same way as in edge templates.
+
+```tsx
+// routes.tsx
+import router from "@adonisjs/core/services/router";
+
+router.get('/foo', async () => {
+  return "foo"
+}).as('foo')
+```
+
+```tsx
+
+// MyComponent.tsx
+import {route} from 'adonisjsx'
+
+function MyComponent() {
+  return (
+    <a href={route('foo')}>Home</a>
+  )
+}
+```
+
 ## Recipes
 Code samples that will help you move from `edge` templating.
 
 ### Get http context inside the component
-You may need to access request or other `HttpContext` metadata inside your component. You can do that by calling `HttpContext.getOrFail` method. You will have to update your `app.ts` `
-useAsyncLocalStorage` config for it to work.
+You may need to access request or other `HttpContext` metadata inside your component. You can do that by calling `HttpContext.getOrFail` method.
 
 ```tsx
 function MyComponent() {
