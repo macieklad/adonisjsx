@@ -1,13 +1,13 @@
 {
   "name": "adonisjsx",
   "description": "",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "engines": {
     "node": ">=18.16.0"
   },
   "type": "module",
   "files": [
-    "build/src",
+    "build",
     "!build/bin",
     "!build/tests",
     "!build/factories"
@@ -30,6 +30,7 @@
     "build": "tsc",
     "postbuild": "npm run copy:templates",
     "release": "np",
+    "release:local": "npm run build && npm pack",
     "version": "npm run build",
     "prepublishOnly": "npm run build"
   },
@@ -37,6 +38,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@adonisjs/core": "^6.2.0",
     "@kitajs/html": "^3.1.1",
     "@kitajs/ts-html-plugin": "^1.3.4",
     "defu": "^6.1.4"
@@ -59,9 +61,6 @@
     "prettier": "^3.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
-  },
-  "peerDependencies": {
-    "@adonisjs/core": "^6.2.0"
   },
   "publishConfig": {
     "access": "public",

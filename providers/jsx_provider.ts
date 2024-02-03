@@ -1,7 +1,8 @@
-import { HttpContext } from '@adonisjs/core/http'
 import { renderToStream } from '@kitajs/html/suspense.js'
-import { ApplicationService } from '@adonisjs/core/types'
 import { Component } from '@kitajs/html'
+import { ApplicationService } from '@adonisjs/core/types'
+import { HttpContext } from '@adonisjs/core/http'
+import Element = JSX.Element
 
 declare module '@adonisjs/core/http' {
   export interface HttpContext {
@@ -12,9 +13,9 @@ declare module '@adonisjs/core/http' {
         data: TData
       },
     >(
-      view: Component<TData> | string,
+      view: Component<TData> | Element | string,
       options?: TOptions
-    ) => JSX.Element
+    ) => Promise<JSX.Element>
     streamJsx: <
       TData extends Record<string, unknown>,
       TOptions extends {
@@ -31,23 +32,27 @@ declare module '@adonisjs/core/http' {
 
 export default class JsxProvider {
   constructor(protected app: ApplicationService) {}
-
-  register() {
-    HttpContext.macro('jsx', function (this: JsxProvider, view, options) {
-      const layout = options?.layout ?? this.app.config.get('jsx.defaultLayout')
-
+  async boot() {
+    const app = this.app
+    HttpContext.macro('jsx', async function (view, options) {
+      const layout = options?.layout ?? app.config.get('jsx.defaultLayout')
       if (layout) {
-        if (typeof view === 'string') {
+        if (typeof view === 'string' || view instanceof Promise) {
           return layout({ ...options?.data, children: view })
         }
+
         return layout({ ...options?.data, children: view(options?.data!) })
       }
 
-      return typeof view === 'string' ? view : view(options?.data!)
+      if (typeof view === 'string' || view instanceof Promise) {
+        return view
+      }
+
+      return view(options?.data!)
     })
 
-    HttpContext.macro('streamJsx', function (this: JsxProvider, view, options) {
-      const layout = options?.layout ?? this.app.config.get('jsx.defaultLayout')
+    HttpContext.macro('streamJsx', function (view, options) {
+      const layout = options?.layout ?? app.config.get('jsx.defaultLayout')
       const ctx = HttpContext.getOrFail()
 
       function markup(rid: number | string) {

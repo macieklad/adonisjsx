@@ -23,4 +23,5 @@ export async function configure(command: ConfigureCommand) {
   })
 
   await codemods.makeUsingStub(stubsRoot, 'jsx.stub', {})
+  await codemods.makeUsingStub(stubsRoot, 'default_layout.stub', {})
 }

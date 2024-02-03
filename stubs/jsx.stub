@@ -1,27 +1,13 @@
 {{{
   exports({
-    to: app.makePath('config/jsx.tsx')
+    to: app.makePath('config/jsx.ts')
   })
 }}}
-import { Html, PropsWithChildren, defineConfig } from 'adonisjsx'
-
-export interface JsxConfig {
-  defaultLayout?: Component
-}
+import { defineConfig } from 'adonisjsx'
+import { DefaultLayout } from './default_layout'
 
 const jsxConfig = defineConfig({
-  defaultLayout: ({ children }: PropsWithChildren) => {
-    return (
-      <html lang="en">
-        <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>AdonisJS</title>
-        </head>
-        <body>{children}</body>
-      </html>
-    )
-  },
+  defaultLayout: DefaultLayout,
 })
 
 export default jsxConfig
