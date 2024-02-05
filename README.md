@@ -46,7 +46,7 @@ After installing package, extend your `tsconfig.json` compiler options:
 As in `jsxFactory` and `jsxFragmentFactory`, `Html` class must be available in scope whenever you are using JSX. You can import it directly in your files when using JSX:
 
 ```tsx
-import Html from 'adonisjsx'
+import { Html } from 'adonisjsx'
 
 router.get('/', async ({ view }) => {
   return <div>Hello World</div>
@@ -119,7 +119,7 @@ But you may want to show most of your UI instantly, and then stream only the par
 import { Suspense } from 'adonisjsx'
 
 router.get('/', async ({ streamJsx }) => {
-  streamJsx(MyComponent)
+  streamJsx(MyComponent, { errorCallback: (error) => ([`Rendering failed: ${error.message}`, 500]) })
 })
 
 function MyComponent({ rid }) {
