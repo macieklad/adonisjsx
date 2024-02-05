@@ -113,7 +113,7 @@ async function MyComponent() {
 
 But you may want to show most of your UI instantly, and then stream only the parts that require async data. You can do that with `streamJsx` method. It will render the component and then stream the async parts as they resolve. Underneath, this method uses AdonisJS streaming, so you do not return the result of the method, you just call it.
 
-`streamJsx` takes the same options as `jsx` method, but also accepts `errorCallback` option, which is called when an error occurs during streaming. By default, it will log the error and send 500 status code, but you can override it to handle errors in your own way. It comes directly from the framework [streaming methods](https://docs.adonisjs.com/guides/response#streaming-content).
+`streamJsx` takes the same options as `jsx` method, but also accepts `errorCallback` option, which is called when an error occurs during streaming. By default, it will log the error and send 500 status code, but you can override it to handle errors in your own way. It comes directly from the framework [streaming methods](https://docs.adonisjs.com/guides/response#streaming-content). The method will also pass the render id to your component - through `rid` prop that you can pass to the `Suspense` component as unique identifier. If you want to, feel free to generate one yourself.
 
 ```tsx
 import { Suspense } from 'adonisjsx'
