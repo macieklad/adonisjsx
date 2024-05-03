@@ -1,7 +1,7 @@
 {
   "name": "adonisjsx",
   "description": "AdonisJS package for adding JSX as your templating engine",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "engines": {
     "node": ">=18.16.0"
   },
@@ -46,15 +46,15 @@
     "@adonisjs/vite": "^2.0.2"
   },
   "devDependencies": {
-    "@adonisjs/assembler": "^7.2.3",
-    "@adonisjs/core": "^6.3.1",
+    "@adonisjs/assembler": "^7.5.1",
+    "@adonisjs/core": "^6.9.0",
     "@adonisjs/eslint-config": "^1.3.0",
     "@adonisjs/prettier-config": "^1.3.0",
     "@adonisjs/tsconfig": "^1.3.0",
-    "@japa/assert": "^2.1.0",
-    "@japa/runner": "^3.1.1",
-    "@swc/core": "^1.4.8",
-    "@types/node": "^20.10.8",
+    "@japa/assert": "^3.0.0",
+    "@japa/runner": "^3.1.4",
+    "@swc/core": "^1.4.17",
+    "@types/node": "^20.12.8",
     "c8": "^9.1.0",
     "copyfiles": "^2.4.1",
     "del-cli": "^5.1.0",
