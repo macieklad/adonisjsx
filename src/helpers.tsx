@@ -3,8 +3,8 @@ import vite from '@adonisjs/vite/services/main'
 import { HttpContext } from '@adonisjs/core/http'
 import router from '@adonisjs/core/services/router'
 
-export function viteAssets(entries: string[], attributes: Record<string, unknown> = {}) {
-  const elements = vite.generateEntryPointsTags(entries, attributes)
+export async function viteAssets(entries: string[], attributes: Record<string, unknown> = {}) {
+  const elements = await vite.generateEntryPointsTags(entries, attributes)
 
   return (
     <>

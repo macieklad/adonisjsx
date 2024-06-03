@@ -41,22 +41,8 @@ After installing package, extend your `tsconfig.json` compiler options:
   "plugins": [{ "name": "@kitajs/ts-html-plugin" }]
 }
 ```
-### Register jsx runtime
 
-As in `jsxFactory` and `jsxFragmentFactory`, `Html` class must be available in scope whenever you are using JSX. You can import it directly in your files when using JSX:
-
-```tsx
-import { Html } from 'adonisjsx'
-
-router.get('/', async ({ view }) => {
-  return <div>Hello World</div>
-})
-```
-
-Or add it globally by registering `Html` module. Add an import to your `server.ts` at the top of the file:
-```tsx
-import 'adonisjsx/register'
-```
+This is an alternative configuration method used in `@kitajs/html` package. Until next release, the recommended way won't work.
 
 ### Update `useAsyncLocalStorage`
 You should also update your `app.ts` `
