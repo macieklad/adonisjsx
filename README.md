@@ -62,13 +62,30 @@ import 'adonisjsx/register'
 You should also update your `app.ts` `
 useAsyncLocalStorage` to `true` if you want to access helpers that depend on `HttpContext` to work.
 
+
+### Use it!
+
+```tsx
+const Component() {
+  return <div>Hello World</div>
+}
+
+router.get('/', async ({ jsx }) => {
+  return jsx.render(Component)
+})
+
+router.get('/stream', async ({ jsx }) => {
+  jsx.stream(Component)
+})
+```
+
 ## API
 
 With the JSX configured, whenever you use it will be compiled to string, so you can simply return JSX from your routes, controllers, or any other place in your app. However, it may get tedious if you are accustomed to using layouts or you want to use more powerful features like streaming. The package gives you a few tools to make your life easier.
 
-### `HttpContext.jsx`
+### `HttpContext.jsx.render`
 ```tsx
-jsx: <
+render: <
   TData extends Record<string, unknown>,
   TOptions extends {
     layout?: Component
@@ -91,9 +108,9 @@ route.get('/', async ({ jsx }) => {
 })
 ```
 
-### `HttpContext.streamJsx`
+### `HttpContext.jsx.stream`
 ```tsx
-streamJsx: <TData extends Record<string, unknown>, TOptions extends {
+stream: <TData extends Record<string, unknown>, TOptions extends {
     layout?: Component;
     errorCallback?: (error: NodeJS.ErrnoException) => [string, number?];
     data: TData;
@@ -111,15 +128,15 @@ async function MyComponent() {
 }
 ```
 
-But you may want to show most of your UI instantly, and then stream only the parts that require async data. You can do that with `streamJsx` method. It will render the component and then stream the async parts as they resolve. Underneath, this method uses AdonisJS streaming, so you do not return the result of the method, you just call it.
+But you may want to show most of your UI instantly, and then stream only the parts that require async data. You can do that with `render` method. It will render the component and then stream the async parts as they resolve. Underneath, this method uses AdonisJS streaming, so you do not return the result of the method, you just call it.
 
-`streamJsx` takes the same options as `jsx` method, but also accepts `errorCallback` option, which is called when an error occurs during streaming. By default, it will log the error and send 500 status code, but you can override it to handle errors in your own way. It comes directly from the framework [streaming methods](https://docs.adonisjs.com/guides/response#streaming-content). The method will also pass the render id to your component - through `rid` prop that you can pass to the `Suspense` component as unique identifier. If you want to, feel free to generate one yourself.
+`stream` takes the same options as `render` method, but also accepts `errorCallback` option, which is called when an error occurs during streaming. By default, it will log the error and send 500 status code, but you can override it to handle errors in your own way. It comes directly from the framework [streaming methods](https://docs.adonisjs.com/guides/response#streaming-content). The method will also pass the render id to your component - through `rid` prop that you can pass to the `Suspense` component as unique identifier. If you want to, feel free to generate one yourself.
 
 ```tsx
 import { Suspense } from 'adonisjsx'
 
-router.get('/', async ({ streamJsx }) => {
-  streamJsx(MyComponent, { errorCallback: (error) => ([`Rendering failed: ${error.message}`, 500]) })
+router.get('/', async ({ jsx }) => {
+  jsx.stream(MyComponent, { errorCallback: (error) => ([`Rendering failed: ${error.message}`, 500]) })
 })
 
 function MyComponent({ rid }) {
