@@ -1,4 +1,3 @@
-import { Html } from '@kitajs/html'
 import vite from '@adonisjs/vite/services/main'
 import { HttpContext } from '@adonisjs/core/http'
 import router from '@adonisjs/core/services/router'

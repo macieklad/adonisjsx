@@ -32,17 +32,14 @@ After installing package, extend your `tsconfig.json` compiler options:
 ```json
 {
   "compilerOptions": {
-    "jsx": "react",
-    "jsxFactory": "Html.createElement",
-    "jsxFragmentFactory": "Html.Fragment"
-  },
-  // Optionally add the ts-html-plugin for xss protection
-  // the package is installed automatically if you are using adonisjsx
-  "plugins": [{ "name": "@kitajs/ts-html-plugin" }]
+    "jsx": "react-jsx",
+    "jsxImportSource": "@kitajs/html",
+    // Optionally add the ts-html-plugin for xss protection
+    // the package is installed automatically if you are using adonisjsx
+    "plugins": [{ "name": "@kitajs/ts-html-plugin" }]
+  }
 }
 ```
-
-This is an alternative configuration method used in `@kitajs/html` package. Until next release, the recommended way won't work.
 
 ### Update `useAsyncLocalStorage`
 You should also update your `app.ts` `

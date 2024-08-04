@@ -1,4 +1,4 @@
-import { Component, Html, PropsWithChildren } from '@kitajs/html'
+import { Component, PropsWithChildren } from '@kitajs/html'
 import { defu } from 'defu'
 
 export interface JsxConfig {
