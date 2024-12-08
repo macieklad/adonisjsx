@@ -1,8 +1,8 @@
-import vite from '@adonisjs/vite/services/main'
 import { HttpContext } from '@adonisjs/core/http'
 import router from '@adonisjs/core/services/router'
 
 export async function viteAssets(entries: string[], attributes: Record<string, unknown> = {}) {
+  const { default: vite } = await import('@adonisjs/vite/services/main')
   const elements = await vite.generateEntryPointsTags(entries, attributes)
 
   return (
@@ -14,7 +14,8 @@ export async function viteAssets(entries: string[], attributes: Record<string, u
   )
 }
 
-export function viteReactRefresh() {
+export async function viteReactRefresh() {
+  const { default: vite } = await import('@adonisjs/vite/services/main')
   const script = vite.getReactHmrScript()
 
   if (!script) return null

@@ -20,7 +20,7 @@
     "clean": "del-cli build",
     "copy:templates": "copyfiles \"stubs/**/*.stub\" build",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext=.ts",
+    "lint": "eslint .",
     "format": "prettier --write .",
     "prebuild": "pnpm lint && pnpm clean",
     "build": "tsc",
