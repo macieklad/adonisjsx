@@ -1,0 +1,70 @@
+{
+  "name": "adonisjsx",
+  "description": "AdonisJS package for adding JSX as your templating engine",
+  "version": "0.5.1",
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "type": "module",
+  "files": [
+    "build",
+    "!build/bin",
+    "!build/tests",
+    "!build/factories"
+  ],
+  "exports": {
+    ".": "./build/index.js",
+    "./jsxProvider": "./build/providers/jsx_provider.js"
+  },
+  "scripts": {
+    "clean": "del-cli build",
+    "copy:templates": "copyfiles \"stubs/**/*.stub\" build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext=.ts",
+    "format": "prettier --write .",
+    "prebuild": "pnpm lint && pnpm clean",
+    "build": "tsc",
+    "postbuild": "npm run copy:templates",
+    "release": "np",
+    "release:local": "pnpm build && pnpm pack",
+    "version": "pnpm build",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@adonisjs/core": "^6.16.0",
+    "@adonisjs/vite": "^3.0.0",
+    "@kitajs/html": "^4.2.5",
+    "@kitajs/ts-html-plugin": "^4.1.1",
+    "defu": "^6.1.4"
+  },
+  "devDependencies": {
+    "@adonisjs/assembler": "^7.8.2",
+    "@adonisjs/eslint-config": "^2.0.0-beta.6",
+    "@adonisjs/prettier-config": "^1.4.0",
+    "@adonisjs/tsconfig": "^1.4.0",
+    "@types/node": "^22.7.5",
+    "copyfiles": "^2.4.1",
+    "del-cli": "^6.0.0",
+    "eslint": "^9.12.0",
+    "np": "^10.1.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  },
+  "np": {
+    "message": "chore(release): %s",
+    "tag": "latest",
+    "branch": "main",
+    "anyBranch": false
+  },
+  "eslintConfig": {
+    "extends": "@adonisjs/eslint-config/package"
+  },
+  "prettier": "@adonisjs/prettier-config"
+}
