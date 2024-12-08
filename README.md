@@ -143,7 +143,7 @@ async function MyAsyncComponent() {
 
 ### `viteAssets`
 ```tsx
-function viteAssets(entries: string[], attributes: Record<string, unknown> = {}): JSX.Element
+async function viteAssets(entries: string[], attributes: Record<string, unknown> = {}): JSX.Element
 ```
 If you use vite with AdonisJS, there are helper methods for edge templates that integrate your templates with vite. `adonisjsx` provides similar helpers for JSX. 
 
@@ -176,7 +176,7 @@ function MyComponent() {
 ### `viteReactRefresh`
 
 ```tsx
-function viteReactRefresh(): JSX.Element
+async function viteReactRefresh(): JSX.Element
 ```
 
 This function will add the necessary script tags to enable vite's react refresh feature. Make sure it is registered before actual react scripts.
