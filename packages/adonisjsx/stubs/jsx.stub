@@ -4,7 +4,7 @@
   })
 }}}
 import { defineConfig } from 'adonisjsx'
-import { DefaultLayout } from './default_layout'
+import { DefaultLayout } from './default_layout.js'
 
 const jsxConfig = defineConfig({
   defaultLayout: DefaultLayout,
