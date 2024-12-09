@@ -60,6 +60,9 @@ jobs:
           node-version: 20
           cache: 'pnpm'
 
+      - name: Install playwright browsers
+        run: npx playwright install
+
       - name: Install
         run: pnpm install
 
