@@ -10,61 +10,33 @@ jobs:
   test-setup:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          path: repository
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Setup test project
         run: |
-          npx --yes create-adonisjs --kit web --auth-guard session --db sqlite adonisjsx-test
+          npx --yes create-adonisjs --kit web --auth-guard session --db sqlite app
 
       - name: Install package
         run: npm install adonisjsx
-        working-directory: ./adonisjsx-test
+        working-directory: ./app
 
       - name: Configure package
         run: node ace configure adonisjsx
-        working-directory: ./adonisjsx-test
+        working-directory: ./app
 
-      - name: Setup tsconfig
+      - name: Setup app
         run: |
-          cat << EOF 
-          {
-            "extends": "@adonisjs/tsconfig/tsconfig.app.json",
-            "compilerOptions": {
-              "rootDir": "./",
-              "outDir": "./build",
-              "jsx": "react-jsx",
-              "jsxImportSource": "@kitajs/html",
-              "plugins": [{ "name": "@kitajs/ts-html-plugin" }]
-            }
-          }
-          EOF > tsconfig.json
-        working-directory: ./adonisjsx-test
-
-      - name: Setup routes
-        run: |
-          cat << EOF 
-          import router from '@adonisjs/core/services/router'          
-          router.get('/', async ({ jsx }) => jsx.render('JSX works'))
-          EOF > start/routes.ts
-        working-directory: ./adonisjsx-test
-
-      - name: Setup test script
-        run: |
-          cat << EOF 
-          response=$(curl -o /dev/null -s -w "%{http_code}\n" -X GET http://localhost:3333)
-          if [ "$response" -eq 200 ]; then
-          echo "Success!"
-          exit 0
-          else
-          echo "Failed with status $response."
-          exit 1
-          fi
-          EOF > test.sh
-          chmod +x test.sh
-        working-directory: ./adonisjsx-test
+          cp -f repository/.github/stubs/tsconfig.stub app/tsconfig.json
+          cp -f repository/.github/stubs/routes.stub app/start/routes.ts
+          cp -f repository/.github/stubs/test-server.sh app/test-server.sh
+          chmod +x app/test-server.sh
 
       - name: Check if server starts
         run: npx --yes start-server-and-test dev http://localhost:3333 ./test.sh
-        working-directory: ./adonisjsx-test
+        working-directory: ./app
