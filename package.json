@@ -7,10 +7,14 @@
     "lint": "pnpm -r lint",
     "typecheck": "pnpm --filter adonisjsx typecheck",
     "test": "pnpm --filter adonisjsx-e2e test",
-    "release": "pnpm --filter adonisjsx release",
-    "sync-package-versions": "syncpack fix-mismatches"
+    "changeset": "changeset",
+    "version": "changeset version",
+    "publish": "changeset publish"
   },
   "devDependencies": {
     "syncpack": "^13.0.0"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.27.10"
   }
 }

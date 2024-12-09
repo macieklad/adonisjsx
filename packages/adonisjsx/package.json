@@ -1,7 +1,7 @@
 {
   "name": "adonisjsx",
   "description": "AdonisJS package for adding JSX as your templating engine",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "engines": {
     "node": ">=20.6.0"
   },
@@ -24,11 +24,7 @@
     "format": "prettier --write .",
     "prebuild": "pnpm lint && pnpm clean",
     "build": "tsc",
-    "postbuild": "npm run copy:templates",
-    "release": "np",
-    "release:local": "pnpm build && pnpm pack",
-    "version": "pnpm build",
-    "prepublishOnly": "pnpm build"
+    "postbuild": "npm run copy:templates"
   },
   "keywords": [],
   "author": "",
@@ -49,19 +45,12 @@
     "copyfiles": "^2.4.1",
     "del-cli": "^6.0.0",
     "eslint": "^9.12.0",
-    "np": "^10.1.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.2"
   },
   "publishConfig": {
     "access": "public",
     "tag": "latest"
-  },
-  "np": {
-    "message": "chore(release): %s",
-    "tag": "latest",
-    "branch": "main",
-    "anyBranch": false
   },
   "eslintConfig": {
     "extends": "@adonisjs/eslint-config/package"
