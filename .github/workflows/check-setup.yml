@@ -37,6 +37,10 @@ jobs:
           cp -f repository/.github/stubs/test-server.sh app/test-server.sh
           chmod +x app/test-server.sh
 
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+
       - name: Check if server starts
         run: npx --yes start-server-and-test 'HOST=0.0.0.0 npm run dev' 3333 ./test-server.sh
         working-directory: ./app
+        timeout-minutes: 1
