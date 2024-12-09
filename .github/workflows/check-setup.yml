@@ -16,14 +16,15 @@ jobs:
 
       - name: Setup test project
         run: |
-          npx --yes create-adonisjs --kit web --auth-guard session --db sqlite adonisjsx-test 
-          cd adonisjsx-test
+          npx --yes create-adonisjs --kit web --auth-guard session --db sqlite adonisjsx-test
 
       - name: Install package
         run: npm install adonisjsx
+        working-directory: ./adonisjsx-test
 
       - name: Configure package
         run: node ace configure adonisjsx
+        working-directory: ./adonisjsx-test
 
       - name: Setup tsconfig
         run: |
@@ -39,6 +40,7 @@ jobs:
             }
           }
           EOF > tsconfig.json
+        working-directory: ./adonisjsx-test
 
       - name: Setup routes
         run: |
@@ -46,6 +48,7 @@ jobs:
           import router from '@adonisjs/core/services/router'          
           router.get('/', async ({ jsx }) => jsx.render('JSX works'))
           EOF > start/routes.ts
+        working-directory: ./adonisjsx-test
 
       - name: Setup test script
         run: |
@@ -60,6 +63,8 @@ jobs:
           fi
           EOF > test.sh
           chmod +x test.sh
+        working-directory: ./adonisjsx-test
 
       - name: Check if server starts
         run: npx --yes start-server-and-test dev http://localhost:3333 ./test.sh
+        working-directory: ./adonisjsx-test
