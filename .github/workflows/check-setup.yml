@@ -1,0 +1,65 @@
+name: Ch
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+
+jobs:
+  test-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup test project
+        run: |
+          npx --yes create-adonisjs --kit web --auth-guard session --db sqlite adonisjsx-test 
+          cd adonisjsx-test
+
+      - name: Install package
+        run: npm install adonisjsx
+
+      - name: Configure package
+        run: node ace configure adonisjsx
+
+      - name: Setup tsconfig
+        run: |
+          cat << EOF 
+          {
+            "extends": "@adonisjs/tsconfig/tsconfig.app.json",
+            "compilerOptions": {
+              "rootDir": "./",
+              "outDir": "./build",
+              "jsx": "react-jsx",
+              "jsxImportSource": "@kitajs/html",
+              "plugins": [{ "name": "@kitajs/ts-html-plugin" }]
+            }
+          }
+          EOF > tsconfig.json
+
+      - name: Setup routes
+        run: |
+          cat << EOF 
+          import router from '@adonisjs/core/services/router'          
+          router.get('/', async ({ jsx }) => jsx.render('JSX works'))
+          EOF > start/routes.ts
+
+      - name: Setup test script
+        run: |
+          cat << EOF 
+          response=$(curl -o /dev/null -s -w "%{http_code}\n" -X GET http://localhost:3333)
+          if [ "$response" -eq 200 ]; then
+          echo "Success!"
+          exit 0
+          else
+          echo "Failed with status $response."
+          exit 1
+          fi
+          EOF > test.sh
+          chmod +x test.sh
+
+      - name: Check if server starts
+        run: npx --yes start-server-and-test dev http://localhost:3333 ./test.sh

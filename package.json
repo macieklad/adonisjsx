@@ -4,6 +4,9 @@
   "type": "module",
   "scripts": {
     "build": "pnpm --filter adonisjsx build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm --filter adonisjsx typecheck",
+    "test": "pnpm --filter adonisjsx-e2e test",
     "release": "pnpm --filter adonisjsx release",
     "sync-package-versions": "syncpack fix-mismatches"
   },
