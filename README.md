@@ -15,6 +15,7 @@
 - JSX as a runtime, usable everywhere in your app
 - Config for global layouts
 - Extended `HTTPContext` with jsx rendering and streaming methods
+- Vite integration
 - Uses `@kitajs/html` for JSX runtime
 
 ## First steps
