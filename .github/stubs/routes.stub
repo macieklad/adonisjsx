@@ -1,0 +1,3 @@
+import router from '@adonisjs/core/services/router'
+
+router.get('/', async ({ jsx }) => jsx.render('JSX works'))
