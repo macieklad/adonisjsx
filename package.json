@@ -8,8 +8,7 @@
     "typecheck": "pnpm --filter adonisjsx typecheck",
     "test": "pnpm --filter adonisjsx-e2e test",
     "changeset": "changeset",
-    "version": "changeset version",
-    "publish": "changeset publish"
+    "release": "changeset version && pnpm build && changeset publish"
   },
   "devDependencies": {
     "syncpack": "^13.0.0"

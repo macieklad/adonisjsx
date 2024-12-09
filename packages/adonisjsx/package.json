@@ -1,7 +1,7 @@
 {
   "name": "adonisjsx",
   "description": "AdonisJS package for adding JSX as your templating engine",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "engines": {
     "node": ">=20.6.0"
   },

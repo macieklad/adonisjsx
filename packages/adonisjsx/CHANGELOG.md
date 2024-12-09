@@ -1,5 +1,11 @@
 # adonisjsx
 
+## 0.6.0
+
+### Minor Changes
+
+- Mark vite methods as async to support adonis setups without it
+
 ## 0.5.2
 
 ### Patch Changes
