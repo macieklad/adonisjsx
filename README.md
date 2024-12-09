@@ -161,11 +161,11 @@ You can add the javascript entry to your JSX like this:
 ```tsx
 import { viteAssets } from 'adonisjsx'
 
-function MyComponent() {
+async function MyComponent() {
   return (
     <html>
       <head>
-        {viteAssets(['resources/js/app.js'])}
+        {await viteAssets(['resources/js/app.js'])}
       </head>
       <body>
         <div>Hello World</div>
@@ -185,12 +185,12 @@ This function will add the necessary script tags to enable vite's react refresh 
 ```tsx
 import { viteReactRefresh, viteAssets } from 'adonisjsx'
 
-function MyComponent() {
+async function MyComponent() {
   return (
     <html>
       <head>
-        {viteReactRefresh()}
-        {viteAssets(['resources/js/app.js'])}
+        {await viteReactRefresh()}
+        {await viteAssets(['resources/js/app.js'])}
       </head>
       <body>
         <div>Hello World</div>
