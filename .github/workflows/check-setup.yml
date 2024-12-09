@@ -38,5 +38,5 @@ jobs:
           chmod +x app/test-server.sh
 
       - name: Check if server starts
-        run: npx --yes start-server-and-test dev http://localhost:3333 ./test.sh
+        run: npx --yes start-server-and-test dev http://localhost:3333 ./test-server.sh
         working-directory: ./app
