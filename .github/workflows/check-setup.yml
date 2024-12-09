@@ -1,4 +1,4 @@
-name: Ch
+name: Check package setup on real project
 
 on:
   schedule:
