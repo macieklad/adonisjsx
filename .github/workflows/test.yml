@@ -63,8 +63,11 @@ jobs:
       - name: Install
         run: pnpm install
 
-      - name: Copy env
-        run: cp packages/adonisjsx-e2e/.env.example packages/adonisjsx-e2e/.env
+      - name: Setup app
+        run: |
+          cd packages/adonisjsx-e2e
+          cp .env.example .env
+          node ace generate:key
 
       - name: Run tests
         run: pnpm test
