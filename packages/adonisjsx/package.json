@@ -10,7 +10,8 @@
     "build",
     "!build/bin",
     "!build/tests",
-    "!build/factories"
+    "!build/factories",
+    "README.md"
   ],
   "exports": {
     ".": "./build/index.js",
