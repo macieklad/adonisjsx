@@ -30,23 +30,23 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@adonisjs/core": "^6.16.0",
-    "@adonisjs/vite": "^3.0.0",
-    "@kitajs/html": "^4.2.5",
+    "@adonisjs/core": "^6.17.2",
+    "@adonisjs/vite": "^4.0.0",
+    "@kitajs/html": "^4.2.7",
     "@kitajs/ts-html-plugin": "^4.1.1",
     "defu": "^6.1.4"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.8.2",
-    "@adonisjs/eslint-config": "^2.0.0-beta.6",
-    "@adonisjs/prettier-config": "^1.4.0",
+    "@adonisjs/eslint-config": "^2.0.0",
+    "@adonisjs/prettier-config": "^1.4.4",
     "@adonisjs/tsconfig": "^1.4.0",
-    "@types/node": "^22.7.5",
+    "@types/node": "^22.14.0",
     "copyfiles": "^2.4.1",
     "del-cli": "^6.0.0",
-    "eslint": "^9.12.0",
-    "prettier": "^3.4.2",
-    "typescript": "^5.7.2"
+    "eslint": "^9.24.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
   },
   "publishConfig": {
     "access": "public",
