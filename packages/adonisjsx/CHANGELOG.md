@@ -1,5 +1,11 @@
 # adonisjsx
 
+## 0.6.1
+
+### Patch Changes
+
+- Update dependencies, support @adonisjs/vite 4
+
 ## 0.6.0
 
 ### Minor Changes

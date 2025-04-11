@@ -1,5 +1,12 @@
 # adonisjsx-e2e
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies
+  - adonisjsx@0.6.1
+
 ## 0.0.2
 
 ### Patch Changes
