@@ -1,5 +1,11 @@
 # adonisjsx
 
+## 0.6.2
+
+### Patch Changes
+
+- 0043682: Update dependencies to latest versions
+
 ## 0.6.1
 
 ### Patch Changes
